@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
@@ -38,6 +39,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private ViewPager mViewPager;
     private HomePagerAdapter mAdapter;
 
+    private View unLogginLayout;
+    private ImageView mPhotoView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         mAdapter = new HomePagerAdapter(getSupportFragmentManager(), CHANNELS);
         mViewPager.setAdapter(mAdapter);
         initMagicIndicator();
+        //登录相关UI
+        unLogginLayout = findViewById(R.id.unloggin_layout);
+        unLogginLayout.setOnClickListener(this);
+        mPhotoView = findViewById(R.id.avatr_view);
     }
 
     //初始化指示器
