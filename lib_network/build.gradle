@@ -24,4 +24,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.depsLibs.appcompat
+    api this.rootProject.depsLibs.okhttp //okttp依赖
 }
