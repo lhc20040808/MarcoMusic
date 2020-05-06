@@ -5,11 +5,11 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
+import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.voice.R;
 import com.marco.voice.view.home.adpater.HomePagerAdapter;
@@ -23,7 +23,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     //指定首页要出现的卡片
     private static final CHANNEL[] CHANNELS =
