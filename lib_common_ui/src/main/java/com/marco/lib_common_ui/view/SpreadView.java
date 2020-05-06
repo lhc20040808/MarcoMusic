@@ -80,7 +80,7 @@ public class SpreadView extends View {
             //更新当前圆的透明度和半径
             if (alpha > 0 && width < 300) {
                 alpha = alpha - distance > 0 ? alpha - distance : 1;
-                alphas.add(alpha);
+                alphas.set(i, alpha);
                 spreadRadius.set(i, width + distance);
             }
         }

@@ -15,8 +15,11 @@ import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.NotificationTarget;
@@ -41,7 +44,7 @@ public class ImageLoaderManager {
         private final static ImageLoaderManager INSTANCE = new ImageLoaderManager();
     }
 
-    public ImageLoaderManager getInstance() {
+    public static ImageLoaderManager getInstance() {
         return Holder.INSTANCE;
     }
 
