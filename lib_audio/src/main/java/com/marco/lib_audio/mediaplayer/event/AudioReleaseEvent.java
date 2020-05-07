@@ -1,4 +1,4 @@
-package com.marco.lib_audio.event;
+package com.marco.lib_audio.mediaplayer.event;
 
 public class AudioReleaseEvent {
 

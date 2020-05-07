@@ -1,6 +1,5 @@
 package com.marco.lib_audio.model;
 
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;

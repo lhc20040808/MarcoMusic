@@ -1,9 +1,13 @@
 package com.marco.lib_audio.mediaplayer.core;
 
+import com.marco.lib_audio.mediaplayer.event.AudioCompleteEvent;
+import com.marco.lib_audio.mediaplayer.event.AudioErrorEvent;
 import com.marco.lib_audio.exception.AudioQueueEmptyException;
 import com.marco.lib_audio.model.Track;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +32,10 @@ public class AudioController {
     private PlayMode mPlayMode;
 
     public AudioController() {
-        this.mQueueIndex = 0;
-        this.mQueue = new ArrayList<>();
+        EventBus.getDefault().register(this);
         this.mAudioPlayer = new AudioPlayer();
+        this.mQueue = new ArrayList<>();
+        this.mQueueIndex = 0;
         this.mPlayMode = PlayMode.LOOP;
     }
 
@@ -56,7 +61,7 @@ public class AudioController {
     }
 
     public void setQueue(List<Track> queue, int queueIndex) {
-        this.mQueue = queue;
+        this.mQueue.addAll(queue);
         this.mQueueIndex = queueIndex;
     }
 
@@ -169,7 +174,20 @@ public class AudioController {
         return getStatus() == CustomMediaPlayer.Status.PAUSED;
     }
 
-    private Track getNowPlaying() {
+    //插放完毕事件处理
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAudioCompleteEvent(
+            AudioCompleteEvent event) {
+        next();
+    }
+
+    //播放出错事件处理
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAudioErrorEvent(AudioErrorEvent event) {
+        next();
+    }
+
+    public Track getNowPlaying() {
         return getPlaying();
     }
 
