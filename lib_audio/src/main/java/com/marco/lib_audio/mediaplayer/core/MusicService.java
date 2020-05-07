@@ -10,10 +10,16 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.marco.lib_audio.app.AudioHelper;
+import com.marco.lib_audio.mediaplayer.event.AudioFavoriteEvent;
+import com.marco.lib_audio.mediaplayer.event.AudioLoadEvent;
+import com.marco.lib_audio.mediaplayer.event.AudioPauseEvent;
+import com.marco.lib_audio.mediaplayer.event.AudioStartEvent;
 import com.marco.lib_audio.model.Track;
 import com.marco.lib_audio.view.NotificationHelper;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -26,7 +32,7 @@ public class MusicService extends Service implements NotificationHelper.Notifica
     //actions
     private static String ACTION_START = "ACTION_START";
 
-    private ArrayList<Track> mAudioBeans;
+    private ArrayList<Track> mTracks;
 
     private NotificationReceiver mReceiver;
 
@@ -56,7 +62,13 @@ public class MusicService extends Service implements NotificationHelper.Notifica
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mAudioBeans = (ArrayList<Track>) intent.getSerializableExtra(DATA_AUDIOS);
+        mTracks = (ArrayList<Track>) intent.getSerializableExtra(DATA_AUDIOS);
+        if (intent.getAction().equals(ACTION_START)) {
+            //播放音乐
+            playMusic();
+            //初始化Notification
+            NotificationHelper.getInstance().init(this);
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -65,6 +77,34 @@ public class MusicService extends Service implements NotificationHelper.Notifica
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         unRegisterBroadcastReceiver();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAudioLoadEvent(AudioLoadEvent event) {
+        //更新notification状态为加载态
+        NotificationHelper.getInstance().showLoadStatus(event.track);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAudioStartEvent(AudioStartEvent event) {
+        //更新notification状态为play态
+        NotificationHelper.getInstance().showPlayStatus();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAudioPauseEvent(AudioPauseEvent event) {
+        //更新notification状态为pause态
+        NotificationHelper.getInstance().showPauseStatus();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAudioFavoriteEvent(AudioFavoriteEvent event) {
+        NotificationHelper.getInstance().changeFavouriteStatus(event.isFavorite);
+    }
+
+    private void playMusic() {
+        AudioController.getInstance().setQueue(mTracks);
+        AudioController.getInstance().play();
     }
 
     private void registerBroadcastReceiver() {
@@ -84,6 +124,8 @@ public class MusicService extends Service implements NotificationHelper.Notifica
 
     @Override
     public void onNotificationInit() {
+        //把Notification和Service绑定，让Service成为前台服务
+        startForeground(NotificationHelper.NOTIFICATION_ID, NotificationHelper.getInstance().getNotification());
     }
 
     /**
@@ -103,6 +145,22 @@ public class MusicService extends Service implements NotificationHelper.Notifica
             if (intent == null || TextUtils.isEmpty(intent.getAction())) {
                 return;
             }
+            String action = intent.getStringExtra(EXTRA);
+            switch (action) {
+                case EXTRA_PLAY:
+                    AudioController.getInstance().playOrPause();
+                    break;
+                case EXTRA_PRE:
+                    AudioController.getInstance().prev();
+                    break;
+                case EXTRA_NEXT:
+                    AudioController.getInstance().next();
+                    break;
+                case EXTRA_FAV:
+                    AudioController.getInstance().changeFavorite();
+                    break;
+            }
+
         }
     }
 }

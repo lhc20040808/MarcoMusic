@@ -1,8 +1,10 @@
 package com.marco.lib_audio.mediaplayer.core;
 
+import com.marco.lib_audio.db.GreenDaoHelper;
 import com.marco.lib_audio.mediaplayer.event.AudioCompleteEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioErrorEvent;
 import com.marco.lib_audio.exception.AudioQueueEmptyException;
+import com.marco.lib_audio.mediaplayer.event.AudioFavoriteEvent;
 import com.marco.lib_audio.model.Track;
 
 import org.greenrobot.eventbus.EventBus;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AudioController {
+
     /**
      * 播放方式
      */
@@ -189,6 +192,18 @@ public class AudioController {
 
     public Track getNowPlaying() {
         return getPlaying();
+    }
+
+    public void changeFavorite() {
+        final Track curTrack = getNowPlaying();
+        if (GreenDaoHelper.selectFavorite(curTrack) != null) {
+            //当前是被收藏的，需要取消收藏
+            GreenDaoHelper.removeFavorite(curTrack);
+            EventBus.getDefault().post(new AudioFavoriteEvent(false));
+        } else {
+            GreenDaoHelper.addFavorite(curTrack);
+            EventBus.getDefault().post(new AudioFavoriteEvent(true));
+        }
     }
 
     private Track getPlaying() {

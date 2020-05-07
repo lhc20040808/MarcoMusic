@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 
 import com.marco.lib_audio.R;
 import com.marco.lib_audio.app.AudioHelper;
+import com.marco.lib_audio.db.GreenDaoHelper;
 import com.marco.lib_audio.mediaplayer.core.AudioController;
 import com.marco.lib_audio.mediaplayer.core.MusicService;
 import com.marco.lib_audio.model.Track;
@@ -168,6 +169,12 @@ public class NotificationHelper {
                             track.albumPic
                     );
             //更新收藏状态
+            if(GreenDaoHelper.selectFavorite(bean) != null){
+                //被收藏过
+                mRemoteViews.setImageViewResource(R.id.favourite_view,R.mipmap.note_btn_loved);
+            }else{
+                mRemoteViews.setImageViewResource(R.id.favourite_view,R.mipmap.note_btn_love_white);
+            }
 
             //更新小布局
             mSmallRemoteViews.setImageViewResource(R.id.play_view, R.mipmap.note_btn_pause_white);
@@ -208,6 +215,13 @@ public class NotificationHelper {
         }
     }
 
+    public void changeFavouriteStatus(boolean isFavourite) {
+        if (mRemoteViews != null) {
+            mRemoteViews.setImageViewResource(R.id.favourite_view,
+                    isFavourite ? R.mipmap.note_btn_loved : R.mipmap.note_btn_love_white);
+            mNotificationManager.notify(NOTIFICATION_ID, mNotification);
+        }
+    }
 
     public Notification getNotification() {
         return mNotification;
