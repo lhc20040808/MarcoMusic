@@ -28,6 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.depsLibs.appcompat
+    compileOnly project(':lib_image_loader')
     //占位主工程的greenDao类库
     compileOnly rootProject.depsLibs.greendao
     //占位主工程的eventbus库

@@ -1,4 +1,4 @@
-package com.marco.voice.view.model;
+package com.marco.voice.model;
 
 import java.io.Serializable;
 

@@ -9,7 +9,7 @@ android {
         targetSdkVersion rootProject.android.targetSdkVersion
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName
-        multiDexEnabled rootProject.android.multiDexEnabled
+//        multiDexEnabled rootProject.android.multiDexEnabled
     }
 
     buildTypes {
@@ -33,4 +33,5 @@ dependencies {
     implementation project(':lib_common_ui')
     implementation project(':lib_network')
     implementation project(':lib_image_loader')
+    implementation project(':lib_audio')
 }

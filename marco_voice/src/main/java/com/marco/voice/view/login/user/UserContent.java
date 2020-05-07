@@ -1,6 +1,6 @@
 package com.marco.voice.view.login.user;
 
-import com.marco.voice.view.model.BaseModel;
+import com.marco.voice.model.BaseModel;
 
 /**
  * 用户真正实体数据
