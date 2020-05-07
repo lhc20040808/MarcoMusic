@@ -74,7 +74,6 @@ public class ImageLoaderManager {
                 .asBitmap()
                 .load(url)
                 .apply(initCommonRequestOptions())
-                .transition(BitmapTransitionOptions.withCrossFade())
                 .into(new BitmapImageViewTarget(imageView) {
                     @Override
                     protected void setResource(Bitmap resource) {
