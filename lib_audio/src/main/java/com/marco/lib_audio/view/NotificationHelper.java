@@ -43,7 +43,7 @@ public class NotificationHelper {
     private NotificationHelperListener mListener;
     private String packageName;
     //当前要播的歌曲Bean
-    private Track mAudioBean;
+    private Track track;
 
     public static NotificationHelper getInstance() {
         return Holder.INSTANCE;
@@ -57,7 +57,7 @@ public class NotificationHelper {
         mNotificationManager = (NotificationManager) AudioHelper.getContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         packageName = AudioHelper.getContext().getPackageName();
-        mAudioBean = AudioController.getInstance().getNowPlaying();
+        track = AudioController.getInstance().getNowPlaying();
         initNotification();
         mListener = listener;
         if (mListener != null) mListener.onNotificationInit();
@@ -86,7 +86,7 @@ public class NotificationHelper {
                             .setContent(mSmallRemoteViews); //正常布局，两个布局可以切换
             mNotification = builder.build();
 
-            showLoadStatus(mAudioBean);
+            showLoadStatus(track);
         }
     }
 
@@ -96,14 +96,14 @@ public class NotificationHelper {
     private void initRemoteViews() {
         int layoutId = R.layout.notification_big_layout;
         mRemoteViews = new RemoteViews(packageName, layoutId);
-        mRemoteViews.setTextViewText(R.id.title_view, mAudioBean.name);
-        mRemoteViews.setTextViewText(R.id.tip_view, mAudioBean.album);
+        mRemoteViews.setTextViewText(R.id.title_view, track.name);
+        mRemoteViews.setTextViewText(R.id.tip_view, track.album);
 
 
         int smalllayoutId = R.layout.notification_small_layout;
         mSmallRemoteViews = new RemoteViews(packageName, smalllayoutId);
-        mSmallRemoteViews.setTextViewText(R.id.title_view, mAudioBean.name);
-        mSmallRemoteViews.setTextViewText(R.id.tip_view, mAudioBean.album);
+        mSmallRemoteViews.setTextViewText(R.id.title_view, track.name);
+        mSmallRemoteViews.setTextViewText(R.id.tip_view, track.album);
 
         //点击播放按钮要发关的广播
         Intent playIntent = new Intent(MusicService.NotificationReceiver.ACTION_STATUS_BAR);
@@ -137,7 +137,7 @@ public class NotificationHelper {
         mRemoteViews.setOnClickPendingIntent(R.id.next_view, nextPendingIntent);
         mSmallRemoteViews.setOnClickPendingIntent(R.id.next_view, nextPendingIntent);
 
-        //点下一首按钮要发送的广播
+        //点收藏要发送的广播
         Intent favouriteIntent = new Intent(MusicService.NotificationReceiver.ACTION_STATUS_BAR);
         playIntent.putExtra(MusicService.NotificationReceiver.EXTRA,
                 MusicService.NotificationReceiver.EXTRA_FAV);
@@ -152,11 +152,11 @@ public class NotificationHelper {
      * 更新为加载状态
      */
     public void showLoadStatus(Track bean) {
-        mAudioBean = bean;
+        track = bean;
         if (mRemoteViews != null) {
             mRemoteViews.setImageViewResource(R.id.play_view, R.mipmap.note_btn_pause_white);
-            mRemoteViews.setTextViewText(R.id.title_view, mAudioBean.name);
-            mRemoteViews.setTextViewText(R.id.tip_view, mAudioBean.album);
+            mRemoteViews.setTextViewText(R.id.title_view, track.name);
+            mRemoteViews.setTextViewText(R.id.tip_view, track.album);
             //为notification中的imageview加载图片
             ImageLoaderManager.getInstance()
                     .displayImageForNotification(
@@ -165,14 +165,14 @@ public class NotificationHelper {
                             mRemoteViews,
                             mNotification,
                             NOTIFICATION_ID,
-                            mAudioBean.albumPic
+                            track.albumPic
                     );
             //更新收藏状态
 
             //更新小布局
             mSmallRemoteViews.setImageViewResource(R.id.play_view, R.mipmap.note_btn_pause_white);
-            mRemoteViews.setTextViewText(R.id.title_view, mAudioBean.name);
-            mRemoteViews.setTextViewText(R.id.tip_view, mAudioBean.album);
+            mRemoteViews.setTextViewText(R.id.title_view, track.name);
+            mRemoteViews.setTextViewText(R.id.tip_view, track.album);
             ImageLoaderManager.getInstance()
                     .displayImageForNotification(
                             AudioHelper.getContext(),
@@ -180,7 +180,7 @@ public class NotificationHelper {
                             mSmallRemoteViews,
                             mNotification,
                             NOTIFICATION_ID,
-                            mAudioBean.albumPic
+                            track.albumPic
                     );
             mNotificationManager.notify(NOTIFICATION_ID, mNotification);
         }
