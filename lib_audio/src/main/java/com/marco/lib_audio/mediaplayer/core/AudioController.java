@@ -5,6 +5,7 @@ import com.marco.lib_audio.mediaplayer.event.AudioCompleteEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioErrorEvent;
 import com.marco.lib_audio.exception.AudioQueueEmptyException;
 import com.marco.lib_audio.mediaplayer.event.AudioFavoriteEvent;
+import com.marco.lib_audio.mediaplayer.event.AudioPlayModeEvent;
 import com.marco.lib_audio.model.Track;
 
 import org.greenrobot.eventbus.EventBus;
@@ -104,7 +105,7 @@ public class AudioController {
     }
 
     private int queryAudio(Track track) {
-        return 0;
+        return mQueue.indexOf(track);
     }
 
     public PlayMode getPlayMode() {
@@ -113,6 +114,7 @@ public class AudioController {
 
     public void setPlayMode(PlayMode playMode) {
         this.mPlayMode = playMode;
+        EventBus.getDefault().post(new AudioPlayModeEvent(playMode));
     }
 
     public int getPlayIndex() {
