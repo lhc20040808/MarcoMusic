@@ -20,7 +20,7 @@ public class AudioController {
     /**
      * 播放方式
      */
-    private enum PlayMode {
+    public enum PlayMode {
         //列表循环
         LOOP,
         //随机
@@ -30,7 +30,7 @@ public class AudioController {
     }
 
     private AudioPlayer mAudioPlayer;
-    private List<Track> mQueue;
+    private ArrayList<Track> mQueue;
     private int mQueueIndex;
     private PlayMode mPlayMode;
 
@@ -50,7 +50,7 @@ public class AudioController {
         return Holder.INSTANCE;
     }
 
-    public List<Track> getQueue() {
+    public ArrayList<Track> getQueue() {
         return mQueue == null ? new ArrayList<Track>() : mQueue;
     }
 

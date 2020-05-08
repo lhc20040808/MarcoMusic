@@ -80,8 +80,14 @@ public class NotificationHelper {
                 channel.enableVibration(false);
                 mNotificationManager.createNotificationChannel(channel);
             }
+
+            Intent intent = new Intent(AudioHelper.getContext(), MusicPlayerActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(AudioHelper.getContext(), 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(AudioHelper.getContext(), CHANNEL_ID)
+                            .setContentIntent(pendingIntent)
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setCustomBigContentView(mRemoteViews) //大布局
                             .setContent(mSmallRemoteViews); //正常布局，两个布局可以切换
@@ -169,11 +175,11 @@ public class NotificationHelper {
                             track.albumPic
                     );
             //更新收藏状态
-            if(GreenDaoHelper.selectFavorite(bean) != null){
+            if (GreenDaoHelper.selectFavorite(bean) != null) {
                 //被收藏过
-                mRemoteViews.setImageViewResource(R.id.favourite_view,R.mipmap.note_btn_loved);
-            }else{
-                mRemoteViews.setImageViewResource(R.id.favourite_view,R.mipmap.note_btn_love_white);
+                mRemoteViews.setImageViewResource(R.id.favourite_view, R.mipmap.note_btn_loved);
+            } else {
+                mRemoteViews.setImageViewResource(R.id.favourite_view, R.mipmap.note_btn_love_white);
             }
 
             //更新小布局

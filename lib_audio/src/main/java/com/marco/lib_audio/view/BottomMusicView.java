@@ -1,6 +1,7 @@
 package com.marco.lib_audio.view;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -63,7 +64,7 @@ public class BottomMusicView extends RelativeLayout {
         rootView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 跳到音乐播放Activitity
+                MusicPlayerActivity.start((Activity) mContext);
             }
         });
         mLeftView = rootView.findViewById(R.id.album_view);

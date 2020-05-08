@@ -15,6 +15,7 @@ import com.marco.lib_audio.mediaplayer.event.AudioCompleteEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioErrorEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioLoadEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioPauseEvent;
+import com.marco.lib_audio.mediaplayer.event.AudioProgressEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioReleaseEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioStartEvent;
 import com.marco.lib_audio.model.Track;
@@ -28,6 +29,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
 
     private static final String TAG = AudioPlayer.class.getSimpleName();
     private static final int TIME_MSG = 0x01;
+    private static final int TIME_INTERVAL = 100;
     //因为失去音频焦点而暂停
     private boolean isPauseByFocusLoss;
     private AudioFocusManager audioFocusManager;
@@ -39,6 +41,11 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case TIME_MSG:
+                    if (getStatus() == CustomMediaPlayer.Status.STARTED
+                            || getStatus() == CustomMediaPlayer.Status.PAUSED) {
+                        EventBus.getDefault().post(new AudioProgressEvent(getStatus(), getCurPosition(), getDuration()));
+                        sendEmptyMessageDelayed(TIME_MSG, TIME_INTERVAL);
+                    }
                     break;
             }
         }
@@ -135,6 +142,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
         if (mediaPlayer == null) {
             return;
         }
+        handler.removeCallbacksAndMessages(null);
         mediaPlayer.release();
         mediaPlayer = null;
         if (audioFocusManager != null) {
@@ -184,6 +192,22 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
         return CustomMediaPlayer.Status.STOPPED;
     }
 
+    public int getDuration() {
+        if (getStatus() == CustomMediaPlayer.Status.STARTED
+                || getStatus() == CustomMediaPlayer.Status.PAUSED) {
+            return mediaPlayer.getDuration();
+        }
+        return 0;
+    }
+
+    public int getCurPosition() {
+        if (getStatus() == CustomMediaPlayer.Status.STARTED
+                || getStatus() == CustomMediaPlayer.Status.PAUSED) {
+            return mediaPlayer.getCurrentPosition();
+        }
+        return 0;
+    }
+
     /**
      * 播放
      */
@@ -195,6 +219,8 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
 
         mediaPlayer.start();
         wifiLock.acquire();
+        //更新进度
+        handler.sendEmptyMessage(TIME_MSG);
         //对外发送start事件
         EventBus.getDefault().post(new AudioStartEvent());
     }
