@@ -3,8 +3,9 @@ package com.marco.lib_common_ui.recyclerview;
 import android.content.Context;
 import android.view.LayoutInflater;
 
-import com.imooc.lib_commin_ui.recyclerview.base.ItemViewDelegate;
-import com.imooc.lib_commin_ui.recyclerview.base.ViewHolder;
+
+import com.marco.lib_common_ui.recyclerview.base.ItemViewDelegate;
+import com.marco.lib_common_ui.recyclerview.base.ViewHolder;
 
 import java.util.List;
 
