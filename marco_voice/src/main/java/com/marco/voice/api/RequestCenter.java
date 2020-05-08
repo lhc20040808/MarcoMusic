@@ -5,6 +5,7 @@ import com.marco.lib_network.request.CommonRequest;
 import com.marco.lib_network.request.RequestParams;
 import com.marco.lib_network.response.listener.DisposeDataHandle;
 import com.marco.lib_network.response.listener.DisposeDataListener;
+import com.marco.voice.view.friend.model.BaseFriendModel;
 import com.marco.voice.view.login.user.User;
 
 /**
@@ -46,5 +47,16 @@ public class RequestCenter {
         params.put("mb", "18734924592");
         params.put("pwd", "999999q");
         RequestCenter.postRequest(HttpConstants.LOGIN, params, listener, User.class);
+    }
+
+    /**
+     * 朋友页面请求
+     *
+     * @param listener
+     */
+    public static void requestFriendData(DisposeDataListener listener) {
+        postRequest(HttpConstants.HOME_FRIEND,
+                null,
+                listener, BaseFriendModel.class);
     }
 }
