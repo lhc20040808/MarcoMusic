@@ -135,7 +135,7 @@ public class IndicatorView extends RelativeLayout
         if (anim != null) {
             if (anim.isPaused()) {
                 anim.resume();
-            } else {
+            } else if (!anim.isRunning()) {
                 anim.start();
             }
         }

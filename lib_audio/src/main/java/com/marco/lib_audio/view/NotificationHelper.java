@@ -74,10 +74,14 @@ public class NotificationHelper {
             //再构建Notification
             //适配安卓8.0的消息渠道
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                //NotificationManager.IMPORTANCE_MIN: 静默
+                //NotificationManager.IMPORTANCE_HIGH:随系统使用声音或振动
                 NotificationChannel channel =
-                        new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+                        new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_MIN);
                 channel.enableLights(false);
                 channel.enableVibration(false);
+                channel.setVibrationPattern(new long[]{0});
+                channel.setSound(null, null);
                 mNotificationManager.createNotificationChannel(channel);
             }
 
@@ -88,8 +92,10 @@ public class NotificationHelper {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(AudioHelper.getContext(), CHANNEL_ID)
                             .setContentIntent(pendingIntent)
+                            .setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setCustomBigContentView(mRemoteViews) //大布局
+                            .setVibrate(new long[]{0})
                             .setContent(mSmallRemoteViews); //正常布局，两个布局可以切换
             mNotification = builder.build();
 
