@@ -26,6 +26,12 @@ public class CustomMediaPlayer extends MediaPlayer implements MediaPlayer.OnComp
     }
 
     @Override
+    public void pause() throws IllegalStateException {
+        super.pause();
+        status = Status.PAUSED;
+    }
+
+    @Override
     public void setDataSource(String path) throws IOException, IllegalArgumentException, IllegalStateException, SecurityException {
         super.setDataSource(path);
         status = Status.INITIALIZED;

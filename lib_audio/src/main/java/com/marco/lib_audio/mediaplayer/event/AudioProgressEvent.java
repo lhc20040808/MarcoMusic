@@ -8,9 +8,9 @@ public class AudioProgressEvent {
     public int duration;
     public int progress;
 
-    public AudioProgressEvent(CustomMediaPlayer.Status status, int duration, int progress) {
+    public AudioProgressEvent(CustomMediaPlayer.Status status, int progress, int duration) {
         this.status = status;
-        this.duration = duration;
         this.progress = progress;
+        this.duration = duration;
     }
 }

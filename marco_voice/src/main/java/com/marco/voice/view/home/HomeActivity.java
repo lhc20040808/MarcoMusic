@@ -11,7 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.marco.lib_audio.mediaplayer.core.AudioController;
+import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_audio.model.Track;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
@@ -89,7 +89,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         "五月天", "小幸运", "电影《不能说的秘密》主题曲,尤其以最美的不是下雨天,是与你一起躲过雨的屋檐最为经典",
                         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559698289780&di=5146d48002250bf38acfb4c9b4bb6e4e&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20131220%2Fbki-20131220170401-1254350944.jpg",
                         "2:45"));
-        AudioController.getInstance().setQueue(mLists);
+        AudioHelper.startMusicService(mLists);
     }
 
     private void initView() {
