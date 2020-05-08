@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.imooc.lib_commin_ui.recyclerview.base.ViewHolder;
-import com.imooc.lib_commin_ui.recyclerview.utils.WrapperUtils;
+import com.marco.lib_common_ui.recyclerview.base.ViewHolder;
+import com.marco.lib_common_ui.recyclerview.utils.WrapperUtils;
 
 public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int BASE_ITEM_TYPE_HEADER = 100000;
