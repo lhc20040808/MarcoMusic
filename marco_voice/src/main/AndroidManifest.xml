@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".view.home.HomeActivity">
+        <activity android:name=".view.load.LoadingActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -23,7 +23,14 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".view.login.LoginActivity" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
     </application>
 

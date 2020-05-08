@@ -82,7 +82,7 @@ public class BottomMusicView extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 //处理播放暂停事件
-                AudioController.getInstance().play();
+                AudioController.getInstance().playOrPause();
             }
         });
         mRightView = rootView.findViewById(R.id.show_list_view);
