@@ -1,12 +1,14 @@
 package com.marco.voice.view.load;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.base.constant.Constant;
+import com.marco.lib_pullalive.AliveJobService;
 import com.marco.voice.R;
 import com.marco.voice.view.home.HomeActivity;
 
@@ -24,6 +26,9 @@ public class LoadingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AliveJobService.start(this);
+        }
         if (hasPermission(Constant.WRITE_READ_EXTERNAL_PERMISSION)) {
             doSDCardPermission();
         } else {

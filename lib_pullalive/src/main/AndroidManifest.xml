@@ -1,2 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marco.lib_pullalive" />
+    package="com.marco.lib_pullalive">
+
+    <application android:allowBackup="true">
+
+        <service
+            android:name=".AliveJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+    </application>
+
+</manifest>
