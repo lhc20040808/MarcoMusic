@@ -12,7 +12,7 @@ ext {
 
     //需要依赖的三方库版本号
     depsVersion = [
-            appcompat: '28.0.0',
+            appcompat     : '28.0.0',
             magicindicator: '1.5.0',
             okhttp        : '3.3.0',
             rxjava        : '2.2.9',
@@ -21,10 +21,11 @@ ext {
             glidecompiler : '4.9.0',
             eventbus      : '3.1.1',
             greendao      : '3.2.2',
+            mutiDex       : '1.0.1',
     ]
 
     depsLibs = [
-            appcompat: "com.android.support:appcompat-v7:${depsVersion.appcompat}",
+            appcompat     : "com.android.support:appcompat-v7:${depsVersion.appcompat}",
             magicindicator: "com.github.hackware1993:MagicIndicator:${depsVersion.magicindicator}",
             okhttp        : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}",
             glide         : "com.github.bumptech.glide:glide:${depsVersion.glide}",
@@ -33,5 +34,6 @@ ext {
             rxandroid     : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
             eventbus      : "org.greenrobot:eventbus:${depsVersion.eventbus}",
             greendao      : "org.greenrobot:greendao:${depsVersion.greendao}",
+            mutiDex       : "com.android.support:multidex:${depsVersion.mutiDex}",
     ]
 }

@@ -5,6 +5,8 @@ apply plugin: 'org.greenrobot.greendao'
 def pomName = this.getName()
 def pomVersion = '1.0.0-SNAPSHOT'
 def pomDescription = 'the audio library for all projects'
+def versionString = '1.0'
+def versionNumber = 1
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -23,6 +25,15 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -30,6 +41,9 @@ dependencies {
 
     implementation rootProject.depsLibs.appcompat
     compileOnly project(':lib_image_loader')
+    compileOnly project(':lib_common_ui')
+    compileOnly project(':lib_share')
+
     //占位主工程的greenDao类库
     compileOnly rootProject.depsLibs.greendao
     //占位主工程的eventbus库
