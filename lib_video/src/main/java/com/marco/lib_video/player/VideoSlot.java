@@ -43,7 +43,7 @@ class VideoSlot implements VideoView.VideoPlayerListener {
 
     @Override
     public void onClickFullScreenBtn() {
-        int startY = Utils.getLocationY(videoView);
+        int startY = Utils.getLocationY(parentView);
         parentView.removeView(videoView);
         VideoFullDialog dialog = new VideoFullDialog(context, videoView, videoView.getCurPosition(), startY);
         dialog.setListener(new VideoFullDialog.VideoFullListener() {

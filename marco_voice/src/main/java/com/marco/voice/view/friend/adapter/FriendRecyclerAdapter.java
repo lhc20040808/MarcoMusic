@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_common_ui.recyclerview.MultiItemTypeAdapter;
@@ -11,6 +12,7 @@ import com.marco.lib_common_ui.recyclerview.base.ItemViewDelegate;
 import com.marco.lib_common_ui.recyclerview.base.ViewHolder;
 import com.marco.lib_common_ui.view.MultiImageViewLayout;
 import com.marco.lib_image_loder.ImageLoaderManager;
+import com.marco.lib_video.player.VideoContext;
 import com.marco.voice.R;
 import com.marco.voice.view.friend.model.FriendBodyValue;
 import com.marco.voice.view.login.LoginActivity;
@@ -29,6 +31,7 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
         super(context, datas);
         mContext = context;
         addItemViewDelegate(MUSIC_TYPE, new MusicItemDelegate());
+        addItemViewDelegate(VIDEO_TYPE, new VideoItemDelegate());
     }
 
     private class MusicItemDelegate implements ItemViewDelegate<FriendBodyValue> {
@@ -80,6 +83,43 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
 
         }
     }
+
+    /**
+     * 视频类型item
+     */
+    private class VideoItemDelegate implements ItemViewDelegate<FriendBodyValue> {
+
+        @Override
+        public int getItemViewLayoutId() {
+            return R.layout.item_friend_list_video_layout;
+        }
+
+        @Override
+        public boolean isForViewType(FriendBodyValue item, int position) {
+            return item.type == FriendRecyclerAdapter.VIDEO_TYPE;
+        }
+
+        @Override
+        public void convert(ViewHolder holder, FriendBodyValue recommandBodyValue, int position) {
+            RelativeLayout videoGroup = holder.getView(R.id.video_layout);
+            VideoContext videoContext = new VideoContext(videoGroup, recommandBodyValue.videoUrl);
+            holder.setText(R.id.fansi_view, recommandBodyValue.fans + "粉丝");
+            holder.setText(R.id.name_view, recommandBodyValue.name + " 分享视频");
+            holder.setText(R.id.text_view, recommandBodyValue.text);
+            holder.setOnClickListener(R.id.guanzhu_view, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!UserManager.getInstance().hasLogin()) {
+                        //goto login
+                        LoginActivity.start(mContext);
+                    }
+                }
+            });
+            ImageView avatar = holder.getView(R.id.photo_view);
+            ImageLoaderManager.getInstance().displayImageForCircle(avatar, recommandBodyValue.avatr);
+        }
+    }
+
 }
 
 

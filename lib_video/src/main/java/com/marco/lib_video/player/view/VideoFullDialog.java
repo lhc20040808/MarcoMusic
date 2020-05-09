@@ -113,7 +113,7 @@ public class VideoFullDialog extends Dialog implements VideoView.VideoPlayerList
                     .setDuration(200)
                     .setInterpolator(new LinearInterpolator())
                     .translationY(deltaY)
-                    .withStartAction(new Runnable() {
+                    .withEndAction(new Runnable() {
                         @Override
                         public void run() {
                             dismiss();

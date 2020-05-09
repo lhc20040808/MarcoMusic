@@ -29,7 +29,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         , MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     public enum State {
-        IDLE, PLAYING, PAUSED, ERROR
+        IDLE, LOADING, PLAYING, PAUSED, ERROR
     }
 
     private static final String TAG = VideoView.class.getSimpleName();
@@ -47,7 +47,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
     /**
      * 当前播放状态
      */
-    private State state;
+    private State state = State.IDLE;
     /**
      * 是否静音
      */
@@ -212,15 +212,33 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
             return;
         }
 
-        setCurState(State.PLAYING);
+        setCurState(State.LOADING);
         showLoadingView();
         try {
             checkMediaPlayer();
             mute(true);
+            Log.d(TAG, "load url:" + url);
             mediaPlayer.setDataSource(url);
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void start() {
+        if (state != State.LOADING) {
+            return;
+        }
+
+        if (!isPlaying()) {
+            setCurState(State.PLAYING);
+            setRealPause(false);
+            setComplete(false);
+            mediaPlayer.setOnSeekCompleteListener(null);
+            mediaPlayer.start();
+            showPlayOrPauseView(true);
+        } else {
+            showPlayOrPauseView(false);
         }
     }
 
@@ -412,6 +430,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        Log.d(TAG, "play audio complete");
         playBack();
         setRealPause(true);
         setComplete(true);
@@ -419,6 +438,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
+        Log.d(TAG, "play audio error");
         setCurState(State.ERROR);
         if (mCurrentCount >= RETRY_MAX_COUNT) {
             showPlayOrPauseView(false);
@@ -435,7 +455,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         showPlayView();
         if (mediaPlayer != null) {
             mCurrentCount = 0;
-            resume();
+            start();
             if (listener != null) {
                 listener.onVideoLoadSuccess();
             }
