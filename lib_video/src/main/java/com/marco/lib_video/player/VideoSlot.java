@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.marco.lib_base.audio.AudioService;
 import com.marco.lib_video.player.view.VideoFullDialog;
 import com.marco.lib_video.player.view.VideoView;
 import com.marco.lib_video.utils.Utils;
@@ -19,8 +22,11 @@ class VideoSlot implements VideoView.VideoPlayerListener {
     private ViewGroup parentView;
     private String videoUrl;
     private VideoSlotListener videoSlotListener;
+    @Autowired(name = "/audio/audio_service")
+    protected AudioService mAudioService;
 
     public VideoSlot(String videoUrl, VideoSlotListener videoSlotListener) {
+        ARouter.getInstance().inject(this);
         this.videoUrl = videoUrl;
         this.videoSlotListener = videoSlotListener;
         this.parentView = videoSlotListener.getParent();
@@ -58,6 +64,7 @@ class VideoSlot implements VideoView.VideoPlayerListener {
             }
         });
         dialog.show();
+        mAudioService.pauseAudio();
     }
 
     private void backToSmallMode(int position) {
@@ -69,7 +76,7 @@ class VideoSlot implements VideoView.VideoPlayerListener {
         videoView.mute(true);
         videoView.setVideoPlayerListener(this);
         videoView.seekAndResume(position);
-        //TODO 恢复音乐播放
+        mAudioService.resumeAudio();
     }
 
     @Override

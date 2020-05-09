@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -29,8 +28,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.depsLibs.appcompat
-    compileOnly project(':lib_base')
+    compileOnly rootProject.depsLibs.appcompat
     //占位主工程arouter库
     compileOnly(rootProject.depsLibs.arouterapi) {
         exclude group: 'com.android.support'
