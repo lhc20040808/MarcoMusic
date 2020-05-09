@@ -24,6 +24,8 @@ ext {
             mutiDex       : '1.0.1',
             design        : '28.0.0',
             recyclerview  : '28.0.0',
+            arouterapi     : '1.5.0',
+            aroutercompiler: '1.2.2',
     ]
 
     depsLibs = [
@@ -39,5 +41,7 @@ ext {
             mutiDex       : "com.android.support:multidex:${depsVersion.mutiDex}",
             design        : "com.android.support:design:${depsVersion.design}",
             recyclerview  : "com.android.support:recyclerview-v7:${depsVersion.recyclerview}",
+            arouterapi     : "com.alibaba:arouter-api:${depsVersion.arouterapi}",
+            aroutercompiler: "com.alibaba:arouter-compiler:${depsVersion.aroutercompiler}",
     ]
 }

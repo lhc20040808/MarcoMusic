@@ -33,6 +33,9 @@ dependencies {
     implementation rootProject.depsLibs.eventbus
     //greendao类库依赖
     implementation rootProject.depsLibs.greendao
+    implementation(rootProject.depsLibs.arouterapi) {
+        exclude group: 'com.android.support'
+    }
 
     implementation project(':lib_common_ui')
     implementation project(':lib_network')
@@ -40,4 +43,5 @@ dependencies {
     implementation project(':lib_audio')
     implementation project(':lib_pullalive')
     implementation project(':lib_video')
+    implementation project(':lib_webview')
 }

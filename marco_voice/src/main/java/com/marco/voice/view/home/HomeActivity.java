@@ -11,12 +11,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_audio.model.Track;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;
 import com.marco.voice.R;
+import com.marco.voice.constant.Constant;
 import com.marco.voice.view.home.adpater.HomePagerAdapter;
 import com.marco.voice.view.home.model.CHANNEL;
 import com.marco.voice.view.login.LoginActivity;
@@ -106,6 +108,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         unLogginLayout = findViewById(R.id.unloggin_layout);
         unLogginLayout.setOnClickListener(this);
         mPhotoView = findViewById(R.id.avatr_view);
+
+        findViewById(R.id.online_music_view).setOnClickListener(this);
     }
 
     //初始化指示器
@@ -166,6 +170,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     mDrawerLayout.closeDrawer(Gravity.LEFT);
                 }
                 break;
+            case R.id.online_music_view:
+                //跳到指定webactivity
+                gotoWebView("https://www.imooc.com");
+                break;
         }
     }
 
@@ -176,5 +184,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         ImageLoaderManager.getInstance()
                 .displayImageForCircle(mPhotoView,
                         UserManager.getInstance().getUser().data.photoUrl);
+    }
+
+    private void gotoWebView(String url) {
+        ARouter.getInstance()
+                .build(Constant.Router.ROUTER_WEB_ACTIVIYT)
+                .withString("url", url)
+                .navigation();
     }
 }
