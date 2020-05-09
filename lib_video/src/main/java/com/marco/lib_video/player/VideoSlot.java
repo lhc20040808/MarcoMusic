@@ -4,13 +4,15 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.marco.lib_video.player.view.VideoFullDialog;
 import com.marco.lib_video.player.view.VideoView;
+import com.marco.lib_video.utils.Utils;
 
 /**
  * 视频的业务逻辑层
  * 负责处理全屏和小屏的切换
  */
-public class VideoSlot implements VideoView.VideoPlayerListener {
+class VideoSlot implements VideoView.VideoPlayerListener {
 
     private Context context;
     private VideoView videoView;
@@ -23,6 +25,7 @@ public class VideoSlot implements VideoView.VideoPlayerListener {
         this.videoSlotListener = videoSlotListener;
         this.parentView = videoSlotListener.getParent();
         this.context = parentView.getContext();
+        initVideoView();
     }
 
     private void initVideoView() {
@@ -40,8 +43,33 @@ public class VideoSlot implements VideoView.VideoPlayerListener {
 
     @Override
     public void onClickFullScreenBtn() {
+        int startY = Utils.getLocationY(videoView);
         parentView.removeView(videoView);
-        //TODO 将VideoView放入全屏dialog中
+        VideoFullDialog dialog = new VideoFullDialog(context, videoView, videoView.getCurPosition(), startY);
+        dialog.setListener(new VideoFullDialog.VideoFullListener() {
+            @Override
+            public void onClose(int position) {
+                backToSmallMode(position);
+            }
+
+            @Override
+            public void playComplete() {
+                backToSmallMode(0);
+            }
+        });
+        dialog.show();
+    }
+
+    private void backToSmallMode(int position) {
+        if (videoView.getParent() == null) {
+            parentView.addView(videoView);
+        }
+        videoView.setTranslationY(0);
+        videoView.isShowFullBtn(true);
+        videoView.mute(true);
+        videoView.setVideoPlayerListener(this);
+        videoView.seekAndResume(position);
+        //TODO 恢复音乐播放
     }
 
     @Override
