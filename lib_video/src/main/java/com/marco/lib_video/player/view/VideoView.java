@@ -1,4 +1,4 @@
-package com.marco.lib_video.player;
+package com.marco.lib_video.player.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,9 +8,12 @@ import android.graphics.SurfaceTexture;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,7 +32,8 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         IDLE, PLAYING, PAUSED, ERROR
     }
 
-    private static final int LOAD_TOTAL_COUNT = 3;
+    private static final String TAG = VideoView.class.getSimpleName();
+    private static final int RETRY_MAX_COUNT = 3;
 
     private int mVideoWidth;
     private int mVideoHeight;
@@ -127,9 +131,9 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         this.state = state;
     }
 
-    private void showPauseView(boolean show) {
-        mFullBtn.setVisibility(show ? View.VISIBLE : View.GONE);
-        mMiniPlayBtn.setVisibility(show ? View.GONE : View.VISIBLE);
+    private void showPlayOrPauseView(boolean isPlay) {
+        mFullBtn.setVisibility(isPlay ? View.VISIBLE : View.GONE);
+        mMiniPlayBtn.setVisibility(isPlay ? View.GONE : View.VISIBLE);
         mLoadingBar.clearAnimation();
         mLoadingBar.setVisibility(View.GONE);
     }
@@ -208,7 +212,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
             return;
         }
 
-        setCurState(State.IDLE);
+        setCurState(State.PLAYING);
         showLoadingView();
         try {
             checkMediaPlayer();
@@ -231,13 +235,17 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
             setComplete(false);
             mediaPlayer.setOnSeekCompleteListener(null);
             mediaPlayer.start();
-            showPauseView(true);
+            showPlayOrPauseView(true);
         } else {
-            showPauseView(false);
+            showPlayOrPauseView(false);
         }
     }
 
     public void pause() {
+        pause(true);
+    }
+
+    public void pause(boolean isShowPlay) {
         if (state != State.PLAYING) {
             return;
         }
@@ -245,7 +253,10 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         if (isPlaying()) {
             mediaPlayer.pause();
         }
-        showPauseView(false);
+
+        if (isShowPlay) {
+            showPlayOrPauseView(false);
+        }
     }
 
     public void stop() {
@@ -257,18 +268,17 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
             this.mediaPlayer = null;
         }
         setCurState(State.IDLE);
-        if (mCurrentCount < LOAD_TOTAL_COUNT) { //满足重新加载的条件
+        if (mCurrentCount < RETRY_MAX_COUNT) { //满足重新加载的条件
             mCurrentCount += 1;
             load();
         } else {
-            showPauseView(false); //显示暂停状态
+            showPlayOrPauseView(false); //显示暂停状态
         }
-
     }
 
     public void seekAndResume(int position) {
         if (mediaPlayer != null) {
-            showPauseView(true);
+            showPlayOrPauseView(true);
             setCurState(State.PLAYING);
             setRealPause(false);
             setComplete(false);
@@ -286,23 +296,22 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         if (state != State.PLAYING) {
             return;
         }
-        if (mediaPlayer != null) {
-            showPauseView(true);
-            setCurState(State.PAUSED);
-            setRealPause(false);
-            setComplete(false);
-            if (isPlaying()) {
-                mediaPlayer.seekTo(position);
-                mediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
-                    @Override
-                    public void onSeekComplete(MediaPlayer mp) {
-                        mediaPlayer.pause();
-                    }
-                });
-            }
+        showPlayOrPauseView(false);
+        setCurState(State.PAUSED);
+        if (isPlaying()) {
+            mediaPlayer.seekTo(position);
+            mediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
+                @Override
+                public void onSeekComplete(MediaPlayer mp) {
+                    mediaPlayer.pause();
+                }
+            });
         }
     }
 
+    /**
+     * 回到播放最初状态
+     */
     public void playBack() {
         setCurState(State.PAUSED);
         if (mediaPlayer != null) {
@@ -310,7 +319,7 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
             mediaPlayer.seekTo(0);
             mediaPlayer.pause();
         }
-        this.showPauseView(false);
+        this.showPlayOrPauseView(false);
     }
 
     public void destroy() {
@@ -325,12 +334,45 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
         setComplete(false);
         setRealPause(false);
         unregisterBroadcastReceiver();
-        showPauseView(false); //除了播放和loading外其余任何状态都显示pause
+        showPlayOrPauseView(false); //除了播放和loading外其余任何状态都显示pause
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getCurPosition() {
+        if (mediaPlayer != null) {
+            return mediaPlayer.getCurrentPosition();
+        }
+        return 0;
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == View.VISIBLE) {
+            if (isRealPause() || isComplete()) {
+                //主动暂停或者播放结束，不恢复视频播放
+                Log.d(TAG, "the video is real pause or complete,not resume");
+                pause();
+            } else {
+                //被动暂停，恢复播放
+                Log.d(TAG, "the video is visible now, resume the video");
+                resume();
+            }
+        } else {
+            Log.d(TAG, "the video is not visible now, resume the video");
+            pause();
+        }
     }
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-
+        Surface videoSurface = new Surface(surface);
+        checkMediaPlayer();
+        mediaPlayer.setSurface(videoSurface);
+        load();
     }
 
     @Override
@@ -350,22 +392,54 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
 
     @Override
     public void onClick(View v) {
-
+        if (v == mMiniPlayBtn) {
+            //播放按钮
+            if (state == State.PAUSED) {
+                resume();
+            } else {
+                load();
+            }
+        } else if (v == mFullBtn) {
+            if (listener != null) {
+                listener.onClickFullScreenBtn();
+            }
+        } else if (v == mVideoView) {
+            if (listener != null) {
+                listener.onClickVideo();
+            }
+        }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
+        playBack();
+        setRealPause(true);
+        setComplete(true);
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        return false;
+        setCurState(State.ERROR);
+        if (mCurrentCount >= RETRY_MAX_COUNT) {
+            showPlayOrPauseView(false);
+            if (listener != null) {
+                listener.onVideoLoadFailed();
+            }
+        }
+        stop();
+        return true;
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-
+        showPlayView();
+        if (mediaPlayer != null) {
+            mCurrentCount = 0;
+            resume();
+            if (listener != null) {
+                listener.onVideoLoadSuccess();
+            }
+        }
     }
 
     /**
@@ -374,7 +448,24 @@ public class VideoView extends RelativeLayout implements View.OnClickListener, T
     private class ScreenEventReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction() != null) {
+                switch (intent.getAction()) {
+                    case Intent.ACTION_USER_PRESENT:
+                        //处理亮屏事件
+                        if (isRealPause() || isComplete()) {
+                            pause();
+                        } else {
+                            resume();
+                        }
+                        break;
+                    case Intent.ACTION_SCREEN_OFF:
+                        if (state == State.PLAYING) {
+                            pause();
+                        }
+                        break;
+                }
 
+            }
         }
     }
 
