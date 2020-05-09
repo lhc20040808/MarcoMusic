@@ -16,7 +16,7 @@ import java.util.List;
  * 显示1~N张图片的View
  */
 public class MultiImageViewLayout extends LinearLayout {
-    public static int MAX_WIDTH = 0;
+    private static int MAX_WIDTH = 0;
 
     // 照片的Url列表
     private List<String> imagesList;
