@@ -26,6 +26,7 @@ ext {
             recyclerview  : '28.0.0',
             arouterapi     : '1.5.0',
             aroutercompiler: '1.2.2',
+            gson           : '2.8.0',
     ]
 
     depsLibs = [
@@ -43,5 +44,6 @@ ext {
             recyclerview  : "com.android.support:recyclerview-v7:${depsVersion.recyclerview}",
             arouterapi     : "com.alibaba:arouter-api:${depsVersion.arouterapi}",
             aroutercompiler: "com.alibaba:arouter-compiler:${depsVersion.aroutercompiler}",
+            gson           : "com.google.code.gson:gson:${depsVersion.gson}",
     ]
 }
