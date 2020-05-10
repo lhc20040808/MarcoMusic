@@ -32,9 +32,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.depsLibs.appcompat
-    implementation rootProject.depsLibs.design
-    implementation rootProject.depsLibs.recyclerview
+    compileOnly rootProject.depsLibs.appcompat
+    compileOnly rootProject.depsLibs.design
+    compileOnly rootProject.depsLibs.recyclerview
     //eventbus类库依赖
     compileOnly rootProject.depsLibs.eventbus
     //gson解析库
