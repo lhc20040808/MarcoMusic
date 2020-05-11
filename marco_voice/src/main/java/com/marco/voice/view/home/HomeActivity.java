@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_audio.model.Track;
+import com.marco.lib_base.login.LoginServiceWrapper;
+import com.marco.lib_base.login.model.event.LoginEvent;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;
@@ -21,9 +23,6 @@ import com.marco.voice.R;
 import com.marco.voice.constant.Constant;
 import com.marco.voice.view.home.adpater.HomePagerAdapter;
 import com.marco.voice.view.home.model.CHANNEL;
-import com.marco.voice.view.login.LoginActivity;
-import com.marco.voice.view.login.event.LoginEvent;
-import com.marco.voice.view.login.manager.UserManager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -164,8 +163,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.unloggin_layout:
-                if (!UserManager.getInstance().hasLogin()) {
-                    LoginActivity.start(this);
+                if (!LoginServiceWrapper.getInstance().hasLogin()) {
+                    LoginServiceWrapper.getInstance().login(this);
                 } else {
                     mDrawerLayout.closeDrawer(Gravity.LEFT);
                 }
@@ -183,7 +182,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         mPhotoView.setVisibility(View.VISIBLE);
         ImageLoaderManager.getInstance()
                 .displayImageForCircle(mPhotoView,
-                        UserManager.getInstance().getUser().data.photoUrl);
+                        LoginServiceWrapper.getInstance().getUserInfo().data.photoUrl);
     }
 
     private void gotoWebView(String url) {

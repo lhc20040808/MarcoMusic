@@ -1,6 +1,6 @@
 package com.marco.ft_login.api;
 
-import com.marco.ft_login.model.user.User;
+import com.marco.lib_base.login.model.user.User;
 import com.marco.lib_network.CommonOkHttpClient;
 import com.marco.lib_network.request.CommonRequest;
 import com.marco.lib_network.request.RequestParams;

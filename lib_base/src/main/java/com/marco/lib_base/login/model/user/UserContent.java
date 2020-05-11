@@ -1,11 +1,9 @@
-package com.marco.voice.view.login.user;
-
-import com.marco.voice.model.BaseModel;
+package com.marco.lib_base.login.model.user;
 
 /**
  * 用户真正实体数据
  */
-public class UserContent extends BaseModel {
+public class UserContent {
 
     public String userId; //用户唯一标识符
     public String photoUrl;

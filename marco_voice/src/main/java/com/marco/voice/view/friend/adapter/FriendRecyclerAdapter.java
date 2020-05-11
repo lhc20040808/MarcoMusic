@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.marco.lib_audio.app.AudioHelper;
+import com.marco.lib_base.login.LoginServiceWrapper;
 import com.marco.lib_common_ui.recyclerview.MultiItemTypeAdapter;
 import com.marco.lib_common_ui.recyclerview.base.ItemViewDelegate;
 import com.marco.lib_common_ui.recyclerview.base.ViewHolder;
@@ -15,8 +16,6 @@ import com.marco.lib_image_loder.ImageLoaderManager;
 import com.marco.lib_video.player.VideoContext;
 import com.marco.voice.R;
 import com.marco.voice.view.friend.model.FriendBodyValue;
-import com.marco.voice.view.login.LoginActivity;
-import com.marco.voice.view.login.manager.UserManager;
 
 import java.util.List;
 
@@ -66,9 +65,9 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
             holder.setOnClickListener(R.id.guanzhu_view, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!UserManager.getInstance().hasLogin()) {
+                    if (!LoginServiceWrapper.getInstance().hasLogin()) {
                         //goto login
-                        LoginActivity.start(mContext);
+                        LoginServiceWrapper.getInstance().login(mContext);
                     }
                 }
             });
@@ -109,9 +108,9 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
             holder.setOnClickListener(R.id.guanzhu_view, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!UserManager.getInstance().hasLogin()) {
+                    if (!LoginServiceWrapper.getInstance().hasLogin()) {
                         //goto login
-                        LoginActivity.start(mContext);
+                        LoginServiceWrapper.getInstance().login(mContext);
                     }
                 }
             });
