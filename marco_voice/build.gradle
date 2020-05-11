@@ -54,4 +54,5 @@ dependencies {
     implementation project(':lib_video')
     implementation project(':lib_webview')
     implementation project(':lib_base')
+    implementation project(':ft_login')
 }
