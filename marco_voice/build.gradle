@@ -49,7 +49,7 @@ dependencies {
     implementation project(':lib_common_ui')
     implementation project(':lib_network')
     implementation project(':lib_image_loader')
-    implementation project(':lib_audio')
+    implementation project(':ft_audio')
     implementation project(':lib_pullalive')
     implementation project(':lib_video')
     implementation project(':lib_webview')

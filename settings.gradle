@@ -1,5 +1,5 @@
 rootProject.name='MarcoMusic'
-include ':lib_audio'
+include ':ft_audio'
 include ':lib_video'
 include ':marco_voice'
 include ':lib_common_ui'
