@@ -17,8 +17,8 @@ import com.marco.lib_audio.R;
 import com.marco.lib_audio.mediaplayer.core.AudioController;
 import com.marco.lib_audio.mediaplayer.event.AudioLoadEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioPlayModeEvent;
-import com.marco.lib_audio.model.Track;
 import com.marco.lib_audio.view.adpater.MusicListAdapter;
+import com.marco.lib_model.ft_audio.model.Track;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

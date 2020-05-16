@@ -17,12 +17,12 @@ import com.marco.ft_home.constant.Constant;
 import com.marco.ft_home.view.home.adpater.HomePagerAdapter;
 import com.marco.ft_home.view.home.model.CHANNEL;
 import com.marco.lib_audio.app.AudioHelper;
-import com.marco.lib_audio.model.Track;
 import com.marco.lib_base.login.LoginServiceWrapper;
 import com.marco.lib_base.login.model.event.LoginEvent;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;
+import com.marco.lib_model.ft_audio.model.Track;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;

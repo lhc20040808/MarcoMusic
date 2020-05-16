@@ -1,6 +1,6 @@
 package com.marco.lib_audio.mediaplayer.event;
 
-import com.marco.lib_audio.model.Track;
+import com.marco.lib_model.ft_audio.model.Track;
 
 public class AudioLoadEvent {
     public Track track;

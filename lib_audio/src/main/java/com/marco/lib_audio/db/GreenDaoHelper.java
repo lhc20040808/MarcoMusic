@@ -3,10 +3,11 @@ package com.marco.lib_audio.db;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.marco.lib_audio.app.AudioHelper;
-import com.marco.lib_audio.model.Favorite;
-import com.marco.lib_audio.model.Track;
-
-import org.greenrobot.greendao.query.QueryBuilder;
+import com.marco.lib_model.db.DaoMaster;
+import com.marco.lib_model.db.DaoSession;
+import com.marco.lib_model.db.FavoriteDao;
+import com.marco.lib_model.ft_audio.model.Favorite;
+import com.marco.lib_model.ft_audio.model.Track;
 
 public class GreenDaoHelper {
     private static final String DB_NAME = "music_db";
@@ -28,6 +29,7 @@ public class GreenDaoHelper {
 
     /**
      * 添加收藏
+     *
      * @param track
      */
     public static void addFavorite(Track track) {
@@ -40,6 +42,7 @@ public class GreenDaoHelper {
 
     /**
      * 移除收藏
+     *
      * @param track
      */
     public static void removeFavorite(Track track) {
@@ -50,6 +53,7 @@ public class GreenDaoHelper {
 
     /**
      * 查询收藏
+     *
      * @param track
      * @return
      */

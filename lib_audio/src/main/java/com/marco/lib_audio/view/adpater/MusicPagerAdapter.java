@@ -13,8 +13,8 @@ import android.widget.ImageView;
 
 import com.marco.lib_audio.R;
 import com.marco.lib_audio.mediaplayer.core.AudioController;
-import com.marco.lib_audio.model.Track;
 import com.marco.lib_image_loder.ImageLoaderManager;
+import com.marco.lib_model.ft_audio.model.Track;
 
 import java.util.ArrayList;
 

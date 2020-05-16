@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.alibaba.arouter'
 
 def pomName = this.getName()
@@ -55,6 +54,7 @@ dependencies {
     compileOnly project(':lib_common_ui')
     compileOnly project(':lib_share')
     compileOnly project(':lib_base')
+    compileOnly project(':lib_model')
 
     //占位主工程的greenDao类库
     compileOnly rootProject.depsLibs.greendao
@@ -67,12 +67,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
     annotationProcessor rootProject.depsLibs.aroutercompiler
-}
-
-greendao {
-    //其它配置保持默认,有需要再研究
-    schemaVersion 1 //数据库版本号
-    daoPackage 'com.marco.lib_audio.db' //dao,master类所在包
 }
 
 uploadArchives {

@@ -15,8 +15,8 @@ import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_audio.db.GreenDaoHelper;
 import com.marco.lib_audio.mediaplayer.core.AudioController;
 import com.marco.lib_audio.mediaplayer.core.MusicService;
-import com.marco.lib_audio.model.Track;
 import com.marco.lib_image_loder.ImageLoaderManager;
+import com.marco.lib_model.ft_audio.model.Track;
 
 /**
  * 音乐Notification帮助类

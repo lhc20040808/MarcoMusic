@@ -53,4 +53,5 @@ dependencies {
     compileOnly project(':lib_audio')
     compileOnly project(':lib_image_loader')
     compileOnly project(':lib_video')
+    compileOnly project(':lib_model')
 }

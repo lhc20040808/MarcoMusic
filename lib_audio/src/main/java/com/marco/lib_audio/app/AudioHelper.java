@@ -6,11 +6,10 @@ import android.content.Context;
 import com.marco.lib_audio.db.GreenDaoHelper;
 import com.marco.lib_audio.mediaplayer.core.AudioController;
 import com.marco.lib_audio.mediaplayer.core.MusicService;
-import com.marco.lib_audio.model.Track;
 import com.marco.lib_audio.view.MusicPlayerActivity;
+import com.marco.lib_model.ft_audio.model.Track;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AudioHelper {
     private static Context sContext;

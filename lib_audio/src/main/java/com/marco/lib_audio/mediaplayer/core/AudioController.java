@@ -1,12 +1,12 @@
 package com.marco.lib_audio.mediaplayer.core;
 
 import com.marco.lib_audio.db.GreenDaoHelper;
+import com.marco.lib_audio.exception.AudioQueueEmptyException;
 import com.marco.lib_audio.mediaplayer.event.AudioCompleteEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioErrorEvent;
-import com.marco.lib_audio.exception.AudioQueueEmptyException;
 import com.marco.lib_audio.mediaplayer.event.AudioFavoriteEvent;
 import com.marco.lib_audio.mediaplayer.event.AudioPlayModeEvent;
-import com.marco.lib_audio.model.Track;
+import com.marco.lib_model.ft_audio.model.Track;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

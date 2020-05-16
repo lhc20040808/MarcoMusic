@@ -1,6 +1,6 @@
 package com.marco.ft_home.view.friend.model;
 
-import com.marco.lib_audio.model.Track;
+import com.marco.lib_model.ft_audio.model.Track;
 
 import java.util.ArrayList;
 

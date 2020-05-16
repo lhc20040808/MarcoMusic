@@ -1,14 +1,15 @@
-package com.marco.lib_audio.model;
+package com.marco.lib_model.ft_audio.model;
 
+
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.ToOne;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
-import com.marco.lib_audio.db.DaoSession;
-import com.marco.lib_audio.db.TrackDao;
-import com.marco.lib_audio.db.FavoriteDao;
+import com.marco.lib_model.db.DaoSession;
+import com.marco.lib_model.db.TrackDao;
+import com.marco.lib_model.db.FavoriteDao;
 
 @Entity
 public class Favorite {
@@ -31,6 +32,8 @@ public class Favorite {
     @Generated(hash = 56835728)
     private transient FavoriteDao myDao;
 
+
+
     @Generated(hash = 2032249464)
     public Favorite(Long favouriteId, @NotNull String audioId) {
         this.favouriteId = favouriteId;
@@ -40,6 +43,11 @@ public class Favorite {
     @Generated(hash = 459811785)
     public Favorite() {
     }
+
+    @Generated(hash = 77538765)
+    private transient String track__resolvedKey;
+
+
 
     public Long getFavouriteId() {
         return this.favouriteId;
@@ -56,9 +64,6 @@ public class Favorite {
     public void setAudioId(String audioId) {
         this.audioId = audioId;
     }
-
-    @Generated(hash = 77538765)
-    private transient String track__resolvedKey;
 
     /** To-one relationship, resolved on first access. */
     @Generated(hash = 846139466)
