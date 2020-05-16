@@ -1,12 +1,12 @@
-package com.marco.voice.api;
+package com.marco.ft_home.api;
 
+import com.marco.ft_home.view.friend.model.BaseFriendModel;
 import com.marco.lib_base.login.model.user.User;
 import com.marco.lib_network.CommonOkHttpClient;
 import com.marco.lib_network.request.CommonRequest;
 import com.marco.lib_network.request.RequestParams;
 import com.marco.lib_network.response.listener.DisposeDataHandle;
 import com.marco.lib_network.response.listener.DisposeDataListener;
-import com.marco.voice.view.friend.model.BaseFriendModel;
 
 /**
  * 请求中心

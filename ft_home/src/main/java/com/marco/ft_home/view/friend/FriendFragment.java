@@ -1,27 +1,26 @@
-package com.marco.voice.view.friend;
+package com.marco.ft_home.view.friend;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.marco.ft_home.R;
+import com.marco.ft_home.api.MockData;
+import com.marco.ft_home.api.RequestCenter;
+import com.marco.ft_home.view.friend.adapter.FriendRecyclerAdapter;
+import com.marco.ft_home.view.friend.model.BaseFriendModel;
+import com.marco.ft_home.view.friend.model.FriendBodyValue;
 import com.marco.lib_common_ui.recyclerview.wrapper.LoadMoreWrapper;
 import com.marco.lib_network.response.listener.DisposeDataListener;
 import com.marco.lib_network.utils.ResponseEntityToModule;
-import com.marco.voice.R;
-import com.marco.voice.api.MockData;
-import com.marco.voice.api.RequestCenter;
-import com.marco.voice.view.friend.adapter.FriendRecyclerAdapter;
-import com.marco.voice.view.friend.model.BaseFriendModel;
-import com.marco.voice.view.friend.model.FriendBodyValue;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,14 +10,13 @@ import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.base.constant.Constant;
 import com.marco.lib_pullalive.AliveJobService;
 import com.marco.voice.R;
-import com.marco.voice.view.home.HomeActivity;
 
 public class LoadingActivity extends BaseActivity {
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            startActivity(new Intent(LoadingActivity.this, HomeActivity.class));
+            //TODO 打开HomeActivity
             finish();
         }
     };

@@ -1,4 +1,4 @@
-package com.marco.voice.view.friend.adapter;
+package com.marco.ft_home.view.friend.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.marco.ft_home.R;
+import com.marco.ft_home.view.friend.model.FriendBodyValue;
 import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_base.login.LoginServiceWrapper;
 import com.marco.lib_common_ui.recyclerview.MultiItemTypeAdapter;
@@ -14,8 +16,6 @@ import com.marco.lib_common_ui.recyclerview.base.ViewHolder;
 import com.marco.lib_common_ui.view.MultiImageViewLayout;
 import com.marco.lib_image_loder.ImageLoaderManager;
 import com.marco.lib_video.player.VideoContext;
-import com.marco.voice.R;
-import com.marco.voice.view.friend.model.FriendBodyValue;
 
 import java.util.List;
 

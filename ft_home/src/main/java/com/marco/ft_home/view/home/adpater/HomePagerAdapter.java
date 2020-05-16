@@ -1,13 +1,13 @@
-package com.marco.voice.view.home.adpater;
+package com.marco.ft_home.view.home.adpater;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.marco.voice.view.discory.DiscoryFragment;
-import com.marco.voice.view.friend.FriendFragment;
-import com.marco.voice.view.home.model.CHANNEL;
-import com.marco.voice.view.mine.MineFragment;
+import com.marco.ft_home.view.discory.DiscoryFragment;
+import com.marco.ft_home.view.friend.FriendFragment;
+import com.marco.ft_home.view.home.model.CHANNEL;
+import com.marco.ft_home.view.mine.MineFragment;
 
 /**
  * 首页ViewPger的Adpater

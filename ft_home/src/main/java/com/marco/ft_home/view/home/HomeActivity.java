@@ -1,4 +1,4 @@
-package com.marco.voice.view.home;
+package com.marco.ft_home.view.home;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.marco.ft_home.R;
+import com.marco.ft_home.constant.Constant;
+import com.marco.ft_home.view.home.adpater.HomePagerAdapter;
+import com.marco.ft_home.view.home.model.CHANNEL;
 import com.marco.lib_audio.app.AudioHelper;
 import com.marco.lib_audio.model.Track;
 import com.marco.lib_base.login.LoginServiceWrapper;
@@ -19,10 +23,6 @@ import com.marco.lib_base.login.model.event.LoginEvent;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;
-import com.marco.voice.R;
-import com.marco.voice.constant.Constant;
-import com.marco.voice.view.home.adpater.HomePagerAdapter;
-import com.marco.voice.view.home.model.CHANNEL;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -161,18 +161,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.unloggin_layout:
-                if (!LoginServiceWrapper.getInstance().hasLogin()) {
-                    LoginServiceWrapper.getInstance().login(this);
-                } else {
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                }
-                break;
-            case R.id.online_music_view:
-                //跳到指定webactivity
-                gotoWebView("https://www.imooc.com");
-                break;
+        int id = v.getId();
+        if (id == R.id.unloggin_layout) {
+            if (!LoginServiceWrapper.getInstance().hasLogin()) {
+                LoginServiceWrapper.getInstance().login(this);
+            } else {
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        } else if (id == R.id.online_music_view) {//跳到指定webactivity
+            gotoWebView("https://www.imooc.com");
         }
     }
 

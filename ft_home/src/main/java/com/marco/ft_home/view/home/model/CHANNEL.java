@@ -1,4 +1,4 @@
-package com.marco.voice.view.home.model;
+package com.marco.ft_home.view.home.model;
 
 public enum CHANNEL {
 

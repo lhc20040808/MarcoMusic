@@ -1,28 +1,27 @@
-package com.marco.voice.view.discory;
+package com.marco.ft_home.view.mine;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.marco.voice.R;
+import com.marco.ft_home.R;
 
-
-public class DiscoryFragment extends Fragment {
+public class MineFragment extends Fragment {
 
     private Context mContext;
     private TextView mTextView;
 
-    public DiscoryFragment() {
+    public MineFragment() {
     }
 
     public static Fragment newInstance() {
-        DiscoryFragment fragment = new DiscoryFragment();
+        MineFragment fragment = new MineFragment();
         return fragment;
     }
 
@@ -38,7 +37,7 @@ public class DiscoryFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mine_layout, null);
         mTextView = rootView.findViewById(R.id.textView);
-        mTextView.setText("发现");
+        mTextView.setText("我的");
         return rootView;
     }
 
