@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.marco.ft_home.R;
 import com.marco.ft_home.view.friend.model.FriendBodyValue;
-import com.marco.lib_audio.app.AudioHelper;
+import com.marco.lib_base.audio.AudioServiceWrapper;
 import com.marco.lib_base.login.LoginServiceWrapper;
 import com.marco.lib_common_ui.recyclerview.MultiItemTypeAdapter;
 import com.marco.lib_common_ui.recyclerview.base.ItemViewDelegate;
@@ -59,7 +59,7 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
                 @Override
                 public void onClick(View v) {
                     //调用音频播放器方法
-                    AudioHelper.addAudio((Activity) mContext, recommandBodyValue.audioBean);
+                    AudioServiceWrapper.getInstance().addAudio((Activity) mContext, recommandBodyValue.audioBean);
                 }
             });
             holder.setOnClickListener(R.id.guanzhu_view, new View.OnClickListener() {

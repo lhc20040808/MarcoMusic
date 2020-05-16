@@ -50,7 +50,5 @@ dependencies {
     compileOnly project(':lib_base')
     //基础UI库
     compileOnly project(':lib_common_ui')
-    compileOnly project(':lib_image_loader')
-    compileOnly project(':lib_video')
-    compileOnly project(':lib_model')
+    compileOnly project(':lib_pullalive')
 }

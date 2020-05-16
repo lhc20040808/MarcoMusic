@@ -1,12 +1,10 @@
-package com.marco.voice.view.load;
+package com.marco.ft_market.view.splash;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.marco.ft_login.LoginActivity;
 import com.marco.lib_base.ft_home.HomeServiceWrapper;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.base.constant.Constant;
