@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marco.voice">
+    package="com.marco.ft_market">
 
-    <application>
+    <application android:allowBackup="true">
 
         <activity android:name="com.marco.ft_market.view.splash.LoadingActivity">
 
