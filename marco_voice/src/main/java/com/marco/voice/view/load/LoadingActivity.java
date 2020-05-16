@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.marco.ft_login.LoginActivity;
+import com.marco.lib_base.ft_home.HomeServiceWrapper;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.base.constant.Constant;
 import com.marco.lib_pullalive.AliveJobService;
@@ -16,7 +18,7 @@ public class LoadingActivity extends BaseActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            //TODO 打开HomeActivity
+            HomeServiceWrapper.getInstance().startHomeActivity(getBaseContext());
             finish();
         }
     };
