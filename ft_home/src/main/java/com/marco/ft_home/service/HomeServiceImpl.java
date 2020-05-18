@@ -11,7 +11,9 @@ import com.marco.lib_base.ft_home.HomeService;
 public class HomeServiceImpl implements HomeService {
     @Override
     public void startHomeActivity(Context context) {
-        context.startActivity(new Intent(context, HomeActivity.class));
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     @Override

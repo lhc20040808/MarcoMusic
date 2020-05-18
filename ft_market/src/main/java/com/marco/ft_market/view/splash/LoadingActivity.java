@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.marco.ft_market.R;
 import com.marco.lib_base.ft_home.HomeServiceWrapper;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.base.constant.Constant;
 import com.marco.lib_pullalive.AliveJobService;
-import com.marco.voice.R;
 
 public class LoadingActivity extends BaseActivity {
 

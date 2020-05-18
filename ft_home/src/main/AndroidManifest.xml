@@ -2,11 +2,13 @@
     package="com.marco.ft_home">
 
 
-    <application>
+    <application android:allowBackup="true">
 
         <activity
             android:name=".view.home.HomeActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
 
     </application>
 
