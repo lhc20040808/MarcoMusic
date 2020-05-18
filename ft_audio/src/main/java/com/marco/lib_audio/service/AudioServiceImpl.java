@@ -11,7 +11,7 @@ import com.marco.lib_model.ft_audio.model.Track;
 
 import java.util.ArrayList;
 
-@Route(path = "/audio/audio_service")
+@Route(path = AudioService.PATH)
 public class AudioServiceImpl implements AudioService {
 
     @Override
