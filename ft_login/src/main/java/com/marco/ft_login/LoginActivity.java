@@ -14,13 +14,14 @@ import com.marco.lib_base.login.model.user.User;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_network.response.listener.DisposeDataListener;
 import com.marco.lib_network.utils.ResponseEntityToModule;
+import com.qihoo360.replugin.loader.a.PluginFragmentActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
 /**
  * 登录页面
  */
-public class LoginActivity extends BaseActivity implements DisposeDataListener {
+public class LoginActivity extends PluginFragmentActivity implements DisposeDataListener {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -44,7 +45,8 @@ public class LoginActivity extends BaseActivity implements DisposeDataListener {
         //处理正常逻辑
         User user = (User) responseObj;
         UserManager.getInstance().saveUser(user);
-        EventBus.getDefault().post(new LoginEvent());
+        //TODO 插件化不能通过eventBus通信
+//        EventBus.getDefault().post(new LoginEvent());
         finish();
     }
 

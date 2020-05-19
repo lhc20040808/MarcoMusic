@@ -1,10 +1,11 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
 
     defaultConfig {
+        applicationId "com.marco.ft_login"
         minSdkVersion rootProject.android.minSdkVersion
         targetSdkVersion rootProject.android.targetSdkVersion
         versionCode rootProject.android.versionCode
@@ -32,22 +33,42 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly rootProject.depsLibs.appcompat
-    compileOnly rootProject.depsLibs.design
-    compileOnly rootProject.depsLibs.recyclerview
+    implementation rootProject.depsLibs.appcompat
+    implementation rootProject.depsLibs.design
+    implementation rootProject.depsLibs.recyclerview
     //eventbus类库依赖
-    compileOnly rootProject.depsLibs.eventbus
+    implementation rootProject.depsLibs.eventbus
     //gson解析库
-    compileOnly rootProject.depsLibs.gson
+    implementation rootProject.depsLibs.gson
     //arouter库
-    compileOnly(rootProject.depsLibs.arouterapi) {
+    implementation(rootProject.depsLibs.arouterapi) {
         exclude group: 'com.android.support'
     }
     annotationProcessor rootProject.depsLibs.aroutercompiler
     //网络请求库
-    compileOnly project(':lib_network')
+    implementation project(':lib_network')
     //业务基础库
-    compileOnly project(':lib_base')
+    implementation project(':lib_base')
     //基础UI库
-    compileOnly project(':lib_common_ui')
+    implementation project(':lib_common_ui')
+}
+
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
+
+//引入Replugin插件
+apply plugin: 'replugin-plugin-gradle'
+
+repluginPluginConfig{
+    pluginName = 'ft_login'//指定当前插件最终名字
+    hostApplicationId = 'com.marco.voice'//定义宿主ApplicationId
+    hostAppLauncherActivity = 'com.marco.ft_market.view.splash.LoadingActivity'//宿主工程启动Activity
+}
+
+//引入Replugin依赖
+dependencies {
+    implementation 'com.qihoo360.replugin:replugin-plugin-lib:2.2.4'
 }

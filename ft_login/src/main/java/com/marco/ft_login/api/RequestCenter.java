@@ -13,7 +13,7 @@ import com.marco.lib_network.response.listener.DisposeDataListener;
 public class RequestCenter {
 
     static class HttpConstants {
-        private static final String ROOT_URL = "http://imooc.com/api";
+        private static final String ROOT_URL = "http://39.97.122.129";
 
         /**
          * 登陆接口

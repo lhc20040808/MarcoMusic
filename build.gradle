@@ -7,6 +7,7 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven {
             url 'http://localhost:8081/repository/imooc_releases/'
             credentials {
@@ -28,7 +29,8 @@ buildscript {
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         //ARouter插件依赖
         classpath "com.alibaba:arouter-register:1.0.2"
-
+        classpath 'com.qihoo360.replugin:replugin-host-gradle:2.3.3'
+        classpath 'com.qihoo360.replugin:replugin-plugin-gradle:2.3.3'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -39,6 +41,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven { url "https://jitpack.io" }
         maven {
             url 'http://localhost:8081/repository/imooc_releases/'
             credentials {
