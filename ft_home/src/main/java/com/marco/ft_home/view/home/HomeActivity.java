@@ -1,6 +1,7 @@
 package com.marco.ft_home.view.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;
 import com.marco.lib_model.ft_audio.model.Track;
+import com.qihoo360.replugin.RePlugin;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -163,11 +165,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.unloggin_layout) {
-            if (!LoginServiceWrapper.getInstance().hasLogin()) {
-                LoginServiceWrapper.getInstance().login(this);
-            } else {
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
-            }
+            Intent intent = RePlugin.createIntent("ft_login","com.marco.ft_login.LoginActivity");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            RePlugin.startActivity(this,intent);
         } else if (id == R.id.online_music_view) {//跳到指定webactivity
             gotoWebView("https://www.imooc.com");
         }

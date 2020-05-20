@@ -54,3 +54,17 @@ dependencies {
     compileOnly project(':lib_video')
     compileOnly project(':lib_model')
 }
+
+//引入Replugin插件
+//apply plugin: 'replugin-plugin-gradle'
+//
+//repluginPluginConfig{
+//    pluginName = 'ft_home'//指定当前插件最终名字
+//    hostApplicationId = 'com.marco.voice'//定义宿主ApplicationId
+//    hostAppLauncherActivity = 'com.marco.ft_market.view.splash.LoadingActivity'//宿主工程启动Activity
+//}
+
+//引入Replugin依赖
+dependencies {
+    implementation 'com.qihoo360.replugin:replugin-plugin-lib:2.3.3'
+}

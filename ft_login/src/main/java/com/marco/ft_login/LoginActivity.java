@@ -10,14 +10,14 @@ import com.marco.ft_login.api.MockData;
 import com.marco.ft_login.api.RequestCenter;
 import com.marco.ft_login.manager.UserManager;
 import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_common_ui.base.PluginBaseActivity;
 import com.marco.lib_network.response.listener.DisposeDataListener;
 import com.marco.lib_network.utils.ResponseEntityToModule;
-import com.qihoo360.replugin.loader.a.PluginFragmentActivity;
 
 /**
  * 登录页面
  */
-public class LoginActivity extends PluginFragmentActivity implements DisposeDataListener {
+public class LoginActivity extends PluginBaseActivity implements DisposeDataListener {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);

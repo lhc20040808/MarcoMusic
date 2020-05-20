@@ -27,4 +27,5 @@ dependencies {
     api rootProject.depsLibs.magicindicator
     compileOnly rootProject.depsLibs.recyclerview
     compileOnly project(':lib_image_loader')
+    compileOnly 'com.qihoo360.replugin:replugin-plugin-lib:2.3.3'
 }
