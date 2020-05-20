@@ -9,7 +9,6 @@ import android.widget.RelativeLayout;
 import com.marco.ft_home.R;
 import com.marco.ft_home.view.friend.model.FriendBodyValue;
 import com.marco.lib_base.audio.AudioServiceWrapper;
-import com.marco.lib_base.ft_login.LoginServiceWrapper;
 import com.marco.lib_common_ui.recyclerview.MultiItemTypeAdapter;
 import com.marco.lib_common_ui.recyclerview.base.ItemViewDelegate;
 import com.marco.lib_common_ui.recyclerview.base.ViewHolder;
@@ -65,10 +64,11 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
             holder.setOnClickListener(R.id.guanzhu_view, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!LoginServiceWrapper.getInstance().hasLogin()) {
-                        //goto login
-                        LoginServiceWrapper.getInstance().login(mContext);
-                    }
+                    //TODO 登录功能
+//                    if (!LoginServiceWrapper.getInstance().hasLogin()) {
+//                        //goto login
+//                        LoginServiceWrapper.getInstance().login(mContext);
+//                    }
                 }
             });
             ImageView avatar = holder.getView(R.id.photo_view);
@@ -108,10 +108,11 @@ public class FriendRecyclerAdapter extends MultiItemTypeAdapter {
             holder.setOnClickListener(R.id.guanzhu_view, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!LoginServiceWrapper.getInstance().hasLogin()) {
-                        //goto login
-                        LoginServiceWrapper.getInstance().login(mContext);
-                    }
+                    //TODO 登录功能
+//                    if (!LoginServiceWrapper.getInstance().hasLogin()) {
+//                        //goto login
+//                        LoginServiceWrapper.getInstance().login(mContext);
+//                    }
                 }
             });
             ImageView avatar = holder.getView(R.id.photo_view);

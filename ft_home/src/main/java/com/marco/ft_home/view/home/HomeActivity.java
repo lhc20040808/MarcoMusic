@@ -1,24 +1,31 @@
 package com.marco.ft_home.view.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.Gson;
 import com.marco.ft_home.R;
 import com.marco.ft_home.constant.Constant;
 import com.marco.ft_home.view.home.adpater.HomePagerAdapter;
 import com.marco.ft_home.view.home.model.CHANNEL;
+import com.marco.lib_base.ILoginService;
 import com.marco.lib_base.audio.AudioServiceWrapper;
-import com.marco.lib_base.ft_login.LoginServiceWrapper;
-import com.marco.lib_base.ft_login.model.event.LoginEvent;
+import com.marco.lib_base.ft_login.LoginPluginConfig;
+import com.marco.lib_base.ft_login.model.user.User;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;
@@ -34,8 +41,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -62,10 +67,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
      */
     private ArrayList<Track> mLists = new ArrayList<>();
 
+    private UserBroadcastReceiver userBroadcastReceiver;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        registerUserBroadcastReceiver();
         setContentView(R.layout.activity_home);
         initView();
         initData();
@@ -157,28 +164,39 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        unregisterUserBroadcastReceiver();
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.unloggin_layout) {
-            Intent intent = RePlugin.createIntent("ft_login","com.marco.ft_login.LoginActivity");
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            RePlugin.startActivity(this,intent);
+            IBinder iBinder = RePlugin.fetchBinder(LoginPluginConfig.PLUGIN_NAME, LoginPluginConfig.KEY_INTERFACE);
+            if (iBinder == null) {
+                Log.e("HomeActivity","no LoginServiceImpl found");
+                return;
+            }
+            ILoginService iLoginService = ILoginService.Stub.asInterface(iBinder);
+            try {
+                if (!iLoginService.hasLogin()) {
+                    Intent intent = RePlugin.createIntent(LoginPluginConfig.PLUGIN_NAME, "com.marco.ft_login.LoginActivity");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    RePlugin.startActivity(this, intent);
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
         } else if (id == R.id.online_music_view) {//跳到指定webactivity
             gotoWebView("https://www.imooc.com");
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginEvent(LoginEvent event) {
+    private void updateLoginUI(User user) {
         unLogginLayout.setVisibility(View.GONE);
         mPhotoView.setVisibility(View.VISIBLE);
         ImageLoaderManager.getInstance()
-                .displayImageForCircle(mPhotoView,
-                        LoginServiceWrapper.getInstance().getUserInfo().data.photoUrl);
+                .displayImageForCircle(mPhotoView, user.data.photoUrl);
     }
 
     private void gotoWebView(String url) {
@@ -186,5 +204,32 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 .build(Constant.Router.ROUTER_WEB_ACTIVIYT)
                 .withString("url", url)
                 .navigation();
+    }
+
+    private void registerUserBroadcastReceiver() {
+        if (userBroadcastReceiver == null) {
+            userBroadcastReceiver = new UserBroadcastReceiver();
+        }
+
+        registerReceiver(userBroadcastReceiver
+                , new IntentFilter(LoginPluginConfig.ACTION.LOGIN_SUCCESS_ACTION));
+    }
+
+    private void unregisterUserBroadcastReceiver() {
+        if (userBroadcastReceiver != null) {
+            unregisterReceiver(userBroadcastReceiver);
+        }
+    }
+
+    private class UserBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals(LoginPluginConfig.ACTION.LOGIN_SUCCESS_ACTION)) {
+                User user = new Gson().fromJson(intent.getStringExtra(LoginPluginConfig.KEY.USER_DATA), User.class);
+                updateLoginUI(user);
+            }
+        }
     }
 }

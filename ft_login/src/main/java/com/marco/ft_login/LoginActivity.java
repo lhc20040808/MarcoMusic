@@ -1,14 +1,17 @@
 package com.marco.ft_login;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.marco.ft_login.api.MockData;
 import com.marco.ft_login.api.RequestCenter;
 import com.marco.ft_login.manager.UserManager;
+import com.marco.lib_base.ft_login.LoginPluginConfig;
 import com.marco.lib_base.ft_login.model.user.User;
 import com.marco.lib_common_ui.base.PluginBaseActivity;
 import com.marco.lib_network.response.listener.DisposeDataListener;
@@ -41,8 +44,7 @@ public class LoginActivity extends PluginBaseActivity implements DisposeDataList
         //处理正常逻辑
         User user = (User) responseObj;
         UserManager.getInstance().saveUser(user);
-        //TODO 插件化不能通过eventBus通信
-//        EventBus.getDefault().post(new LoginEvent());
+        sendBroadcast(user);
         finish();
     }
 
@@ -51,5 +53,12 @@ public class LoginActivity extends PluginBaseActivity implements DisposeDataList
         //登录失败逻辑
         onSuccess(ResponseEntityToModule.parseJsonToModule(
                 MockData.LOGIN_DATA, User.class));
+    }
+
+    private void sendBroadcast(User user) {
+        Intent intent = new Intent();
+        intent.setAction(LoginPluginConfig.ACTION.LOGIN_SUCCESS_ACTION);
+        intent.putExtra(LoginPluginConfig.KEY.USER_DATA, new Gson().toJson(user));
+        sendBroadcast(intent);
     }
 }

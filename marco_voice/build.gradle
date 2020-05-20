@@ -39,6 +39,7 @@ dependencies {
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid
     implementation rootProject.depsLibs.eventbus
+    implementation rootProject.depsLibs.gson
     //greendao类库依赖
     implementation rootProject.depsLibs.greendao
     implementation(rootProject.depsLibs.arouterapi) {
