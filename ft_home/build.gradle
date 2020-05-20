@@ -66,5 +66,5 @@ dependencies {
 
 //引入Replugin依赖
 dependencies {
-    implementation 'com.qihoo360.replugin:replugin-plugin-lib:2.3.3'
+    compileOnly 'com.qihoo360.replugin:replugin-plugin-lib:2.3.3'
 }
