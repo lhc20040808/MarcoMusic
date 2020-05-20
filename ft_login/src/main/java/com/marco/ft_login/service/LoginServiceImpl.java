@@ -6,8 +6,8 @@ import android.util.Log;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.marco.ft_login.LoginActivity;
 import com.marco.ft_login.manager.UserManager;
-import com.marco.lib_base.login.LoginService;
-import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_base.ft_login.LoginService;
+import com.marco.lib_base.ft_login.model.user.User;
 
 @Route(path = LoginService.PATH)
 public class LoginServiceImpl implements LoginService {

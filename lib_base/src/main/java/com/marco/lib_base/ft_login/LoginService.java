@@ -1,9 +1,9 @@
-package com.marco.lib_base.login;
+package com.marco.lib_base.ft_login;
 
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.template.IProvider;
-import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_base.ft_login.model.user.User;
 
 public interface LoginService extends IProvider {
 

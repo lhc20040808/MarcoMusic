@@ -1,6 +1,6 @@
 package com.marco.ft_login.manager;
 
-import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_base.ft_login.model.user.User;
 
 /**
  * 单例管理登陆用户信息

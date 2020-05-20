@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import com.marco.ft_home.R;
 import com.marco.ft_home.view.friend.model.FriendBodyValue;
 import com.marco.lib_base.audio.AudioServiceWrapper;
-import com.marco.lib_base.login.LoginServiceWrapper;
+import com.marco.lib_base.ft_login.LoginServiceWrapper;
 import com.marco.lib_common_ui.recyclerview.MultiItemTypeAdapter;
 import com.marco.lib_common_ui.recyclerview.base.ItemViewDelegate;
 import com.marco.lib_common_ui.recyclerview.base.ViewHolder;

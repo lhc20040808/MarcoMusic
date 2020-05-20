@@ -1,7 +1,7 @@
 package com.marco.ft_home.api;
 
 import com.marco.ft_home.view.friend.model.BaseFriendModel;
-import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_base.ft_login.model.user.User;
 import com.marco.lib_network.CommonOkHttpClient;
 import com.marco.lib_network.request.CommonRequest;
 import com.marco.lib_network.request.RequestParams;

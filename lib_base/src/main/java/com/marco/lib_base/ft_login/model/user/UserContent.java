@@ -1,4 +1,4 @@
-package com.marco.lib_base.login.model.user;
+package com.marco.lib_base.ft_login.model.user;
 
 /**
  * 用户真正实体数据

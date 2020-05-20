@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.marco.lib_base.login.model.user.User;
 
 public class HomeServiceWrapper {
 

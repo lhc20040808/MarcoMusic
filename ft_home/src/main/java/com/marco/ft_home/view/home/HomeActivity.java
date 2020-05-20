@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,8 +17,8 @@ import com.marco.ft_home.constant.Constant;
 import com.marco.ft_home.view.home.adpater.HomePagerAdapter;
 import com.marco.ft_home.view.home.model.CHANNEL;
 import com.marco.lib_base.audio.AudioServiceWrapper;
-import com.marco.lib_base.login.LoginServiceWrapper;
-import com.marco.lib_base.login.model.event.LoginEvent;
+import com.marco.lib_base.ft_login.LoginServiceWrapper;
+import com.marco.lib_base.ft_login.model.event.LoginEvent;
 import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.marco.lib_image_loder.ImageLoaderManager;

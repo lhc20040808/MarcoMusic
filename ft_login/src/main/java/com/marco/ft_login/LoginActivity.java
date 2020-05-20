@@ -9,7 +9,7 @@ import android.view.View;
 import com.marco.ft_login.api.MockData;
 import com.marco.ft_login.api.RequestCenter;
 import com.marco.ft_login.manager.UserManager;
-import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_base.ft_login.model.user.User;
 import com.marco.lib_common_ui.base.PluginBaseActivity;
 import com.marco.lib_network.response.listener.DisposeDataListener;
 import com.marco.lib_network.utils.ResponseEntityToModule;

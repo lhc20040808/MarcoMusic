@@ -1,10 +1,10 @@
-package com.marco.lib_base.login;
+package com.marco.lib_base.ft_login;
 
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.marco.lib_base.login.model.user.User;
+import com.marco.lib_base.ft_login.model.user.User;
 
 public class LoginServiceWrapper {
 
