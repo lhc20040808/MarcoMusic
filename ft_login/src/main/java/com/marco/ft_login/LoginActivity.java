@@ -9,14 +9,10 @@ import android.view.View;
 import com.marco.ft_login.api.MockData;
 import com.marco.ft_login.api.RequestCenter;
 import com.marco.ft_login.manager.UserManager;
-import com.marco.lib_base.login.model.event.LoginEvent;
 import com.marco.lib_base.login.model.user.User;
-import com.marco.lib_common_ui.base.BaseActivity;
 import com.marco.lib_network.response.listener.DisposeDataListener;
 import com.marco.lib_network.utils.ResponseEntityToModule;
 import com.qihoo360.replugin.loader.a.PluginFragmentActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * 登录页面

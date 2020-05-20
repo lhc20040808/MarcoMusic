@@ -30,6 +30,7 @@ buildscript {
         //ARouter插件依赖
         classpath "com.alibaba:arouter-register:1.0.2"
         classpath 'com.qihoo360.replugin:replugin-host-gradle:2.3.3'
+        //replugin插件库
         classpath 'com.qihoo360.replugin:replugin-plugin-gradle:2.3.3'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
